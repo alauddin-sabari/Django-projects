@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Weather App</h1>
+        <form method="get" class="form-inline justify-content-center mb-4">
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="city" class="form-control" placeholder="Enter city" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Get Weather Info</button>
+        </form>
+        {% if data %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Weather Information for {{ data.name }}, {{ data.country_code }}</h5>
+                    <p class="card-text">Temperature: {{ data.temperature_celsius }}°C</p>
+                    <p class="card-text">Weather: {{ data.weather.0.description }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
