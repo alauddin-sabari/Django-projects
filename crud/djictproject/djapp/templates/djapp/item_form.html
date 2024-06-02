@@ -1,0 +1,13 @@
+{% extends 'djapp/base.html' %}
+
+{% block content %}
+<h1>{% if form.instance.pk %}Edit{% else %}New{% endif %} Item</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

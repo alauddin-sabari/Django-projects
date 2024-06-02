@@ -1,0 +1,40 @@
+{% extends 'djapp/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Items</h1>
+    <a href="{% url 'create_item' %}" class="btn btn-primary mb-2">Add New Item</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        <div class="description-short">{{ item.description|truncatechars:50 }}</div>
+                         
+                        
+                    </td>
+                    <td>
+                        <a href="{% url 'update_item' item.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{% url 'delete_item' item.pk %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+ 
+
+ 
