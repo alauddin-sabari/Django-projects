@@ -1,4 +1,4 @@
-### Step-by-Step Procedure to Create a Django CRUD Operation Project
+Including steps for configuring PostgreSQL and registering the model in `admin.py` with specific columns.
 
 ---
 
@@ -24,8 +24,23 @@
 - **Step 1:** Add the App to Installed Apps
   - Open `myproject/settings.py`
   - Add `'myapp',` to `INSTALLED_APPS`
-- **Step 2:** Configure Database
-  - Ensure database settings in `myproject/settings.py` are correct (default is SQLite)
+- **Step 2:** Install PostgreSQL and `psycopg2-binary`
+  - `pip install psycopg2-binary`
+- **Step 3:** Configure PostgreSQL Database
+  - Update `myproject/settings.py` with PostgreSQL settings:
+    ```python
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'mydatabase',
+            'USER': 'mydatabaseuser',
+            'PASSWORD': 'mypassword',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
+    ```
+  - Ensure PostgreSQL server is running and the database `mydatabase` is created.
 
 ---
 
@@ -52,7 +67,45 @@
 
 ---
 
-#### **Slide 4: Create Views**
+#### **Slide 4: Register Model in Admin**
+
+**Title: Register Model in Admin**
+
+- **Step 1:** Register the Model
+  - Open `myapp/admin.py`
+  - Add the following code to register the `Item` model and specify the columns:
+    ```python
+    from django.contrib import admin
+    from .models import Item
+
+    class ItemAdmin(admin.ModelAdmin):
+        list_display = ('name', 'description')
+
+    admin.site.register(Item, ItemAdmin)
+    ```
+
+---
+
+#### **Slide 5: Create Forms**
+
+**Title: Create Forms**
+
+- **Step 1:** Define a Form
+  - Create a file `myapp/forms.py`
+  - Add the following code:
+    ```python
+    from django import forms
+    from .models import Item
+
+    class ItemForm(forms.ModelForm):
+        class Meta:
+            model = Item
+            fields = ['name', 'description']
+    ```
+
+---
+
+#### **Slide 6: Create Views**
 
 **Title: Create Views**
 
@@ -99,26 +152,7 @@
 
 ---
 
-#### **Slide 5: Create Forms**
-
-**Title: Create Forms**
-
-- **Step 1:** Define a Form
-  - Create a file `myapp/forms.py`
-  - Add the following code:
-    ```python
-    from django import forms
-    from .models import Item
-
-    class ItemForm(forms.ModelForm):
-        class Meta:
-            model = Item
-            fields = ['name', 'description']
-    ```
-
----
-
-#### **Slide 6: Configure URLs**
+#### **Slide 7: Configure URLs**
 
 **Title: Configure URLs**
 
@@ -151,7 +185,7 @@
 
 ---
 
-#### **Slide 7: Create Templates**
+#### **Slide 8: Create Templates**
 
 **Title: Create Templates**
 
@@ -203,7 +237,7 @@
 
 ---
 
-#### **Slide 8: Create Form Template**
+#### **Slide 9: Create Form Template**
 
 **Title: Create Form Template**
 
@@ -228,7 +262,7 @@
 
 ---
 
-#### **Slide 9: Create Delete Confirmation Template**
+#### **Slide 10: Create Delete Confirmation Template**
 
 **Title: Create Delete Confirmation Template**
 
@@ -251,7 +285,7 @@
 
 ---
 
-#### **Slide 10: Run the Server**
+#### **Slide 11: Run the Server**
 
 **Title: Run the Server**
 
@@ -262,4 +296,9 @@
 
 ---
 
-These slides cover the essential steps for creating a Django CRUD operation project, from setting up the project to running the server and verifying the application.
+---
+
+This completes the setup and implementation of a Django CRUD application using PostgreSQL. You can now add, edit, and delete items through the web interface. Congratulations on building your first Django CRUD project!
+
+---
+
